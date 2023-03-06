@@ -31,21 +31,21 @@ function promptMenu() {
                 case "View all departments":
                     viewDepartments();
                     break;
-                // case "View all roles":
-                //     viewRoles();
-                //     break;
-                // case "View all employees":
-                //     viewEmployees();
-                //     break;
-                // case "Add a department":
-                //     addDepartment();
-                //     break;
-                // case "Add a role":
-                //     addRole();
-                //     break;
-                // case "Add an employee":
-                //     addEmployee();
-                //     break;
+                case "View all roles":
+                    viewRoles();
+                    break;
+                case "View all employees":
+                    viewEmployees();
+                    break;
+                case "Add a department":
+                    addDepartment();
+                    break;
+                case "Add a role":
+                    addRole();
+                    break;
+                case "Add an employee":
+                    addEmployee();
+                    break;
                 // case "Update an employee role":
                 //     updateRole();
                 //     break;
@@ -68,8 +68,73 @@ const viewDepartments = () => {
       });
   }
 
+  const viewRoles = () => {
+    let query =
+    `SELECT
+        role.id,
+        role.title
+    FROM role`
+
+    db.query(query, (err, res)=>{
+        if (err) throw err;
+        console.table(res);
+        promptMenu();
+      });
+  }
+
+  const viewEmployees = () => {
+    let query =
+    `SELECT
+        employee.id,
+        employee.first_name,
+        employee.last_name
+    FROM employee`
+
+    db.query(query, (err, res)=>{
+        if (err) throw err;
+        console.table(res);
+        promptMenu();
+      });
+  }
 
 
+  function addDepartment() {
+    inquirer.prompt([
+        {
+            type: 'text',
+            name: 'updateDepartment',
+            message: 'What department do you want to add?'
+        }])
+        .then(res => {
+            console.log(res.updateDepartment)})
+            promptMenu();
+     
+  }
+
+  
+  function addRole() {
+    inquirer.prompt([
+        {
+            type: 'text',
+            name: 'updateRole',
+            message: 'What role do you want to add?'
+        }])
+        .then(res => {
+            console.log(res.updateRole)})
+            promptMenu();
+  }
+
+  function addEmployee() {
+    inquirer.prompt([
+        {
+            type: 'text',
+            name: 'updateEmployee',
+            message: 'What employee do you want to add?'
+        }])
+        .then(res => {
+            console.log(res.updateEmployee)})
+            promptMenu();
+  }
 
 
 const complete = () => {
