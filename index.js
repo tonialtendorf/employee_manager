@@ -58,7 +58,7 @@ const viewDepartments = () => {
     let query =
     `SELECT
         department.id,
-        department.name
+        department.name AS department
     FROM department`
 
     db.query(query, (err, res)=>{
@@ -72,8 +72,11 @@ const viewDepartments = () => {
     let query =
     `SELECT
         role.id,
-        role.title
-    FROM role`
+        role.title,
+        role.salary,
+        department.name AS department
+    FROM role
+    JOIN department ON role.department_id = department.id`
 
     db.query(query, (err, res)=>{
         if (err) throw err;
@@ -87,8 +90,14 @@ const viewDepartments = () => {
     `SELECT
         employee.id,
         employee.first_name,
-        employee.last_name
-    FROM employee`
+        employee.last_name,
+        role.title,
+        role.salary,
+        department.name AS department,
+        manager_id
+    FROM employee
+    JOIN role ON employee.role_id = role.id
+    JOIN department ON role.department_id = department.id`
 
     db.query(query, (err, res)=>{
         if (err) throw err;
@@ -106,10 +115,10 @@ const viewDepartments = () => {
             message: 'What department do you want to add?'
         }])
         .then(res => {
-            console.log(res.updateDepartment)})
             promptMenu();
      
-  }
+  });
+}
 
   
   function addRole() {
@@ -118,26 +127,52 @@ const viewDepartments = () => {
             type: 'text',
             name: 'updateRole',
             message: 'What role do you want to add?'
+        },
+        {
+            type: 'text',
+            name: 'updateSalary',
+            message: 'What is the salary?'
+        },
+        {
+            type: 'text',
+            name: 'addRoleDepartment',
+            message: 'What department does this role go to?'
         }])
         .then(res => {
-            console.log(res.updateRole)})
             promptMenu();
-  }
+  })
+}
 
   function addEmployee() {
     inquirer.prompt([
         {
             type: 'text',
-            name: 'updateEmployee',
-            message: 'What employee do you want to add?'
+            name: 'employeeFirst',
+            message: 'Please enter the employees first name'
+        },
+        {
+            type: 'text',
+            name: 'employeeLast',
+            message: 'Please enter the employees last name'
+        },
+        {
+            type: 'text',
+            name: 'employeeRole',
+            message: 'Please enter the employees role'
+        },
+        {
+            type: 'text',
+            name: 'employeeManager',
+            message: 'Please enter the employees manager'
         }])
         .then(res => {
-            console.log(res.updateEmployee)})
             promptMenu();
+  })
   }
 
 
 const complete = () => {
-    console.log(`Finished`);
+    console.log('Finished');
+    process.exit();
 }
 
