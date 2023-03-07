@@ -23,7 +23,7 @@
  Must install npm i inquirer@8.2.4 to deploy the CLI application.
   
     Click on video to play.
-[![Employee Manager demo](https://img.youtube.com/vi/Vk7ATcXnEtE/0.jpg)](https://https://www.youtube.com/watch?v=Vk7ATcXnEtE)
+[![Employee Manager demo](https://img.youtube.com/vi/Vk7ATcXnEtE/0.jpg)](https://www.youtube.com/watch?v=Vk7ATcXnEtE)
   ## Credits
 
 	- Module 10 Challenge prompts
